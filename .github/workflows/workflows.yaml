@@ -65,18 +65,12 @@ jobs:
         uses: docker/metadata-action@v6
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_TOKEN }}
-          tags: |
-           type=sha,prefix=sha-,format=short 
-           type=ref,event=branch
-           type=raw, value=latest,enable={{is_dafault_branch}}
+          
       - name: build and push docker image
         uses: docker/build-push-action@v7
         with:
          context: .
          push: true
-         tags: ${{steps.meta.outputs.tags}}
-         labels: ${{steps.meta.outputs.labels}}
-         cache-from: type=gha
-         cache-to: type=gha, mode=max
+       
 
   
